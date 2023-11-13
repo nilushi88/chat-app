@@ -24,7 +24,7 @@ const Login = () => {
         e.preventDefault();
         try {
             const res = await signInWithEmailAndPassword(auth, emailInputRef.current.value, passwordInputRef.current.value);
-            navigate("/");           
+            navigate("/");
         } catch (err) {
             console.log(err);
             setErr(true);
@@ -35,21 +35,21 @@ const Login = () => {
 
         <div className={styles.formContainer}>
             <div className={styles.formWrapper}>
-                <form className={styles.form}>
+                <form className={styles.form} onSubmit={loginUser}>
                     <div className={styles.heading}>Login</div>
                     <div className="mb-6">
                         <label className={styles.label} htmlFor="email">Email Address</label>
-                        <input className={styles.input} type="text" id="email" ref={emailInputRef} required />
+                        <input className={styles.input} type="email" id="email" ref={emailInputRef} required />
                     </div>
                     <div className="mb-6">
                         <label className={styles.label} htmlFor="password"> Password </label>
                         <input className={styles.input} type="password" id="password" ref={passwordInputRef} required />
                     </div>
                     <div className="flex items-center">
-                        <button className={styles.button} type="button" onClick={loginUser}>
+                        <button className={styles.button} type="submit">
                             Login
                         </button>
-                        {err && <span>Something went wrong</span>}
+                        {err && <span>Invalid Username or Password</span>}
                     </div>
                 </form>
                 <p>You don't have an account? <Link to="/signup">Sign Up</Link></p>

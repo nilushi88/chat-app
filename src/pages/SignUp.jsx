@@ -33,18 +33,18 @@ const SignUp = () => {
 
             await updateProfile(res.user, {
                 displayName: name
-              });
+            });
 
             await setDoc(doc(db, "users", res.user.uid), {
-                uid: res.user.uid, 
-                displayName: name, 
+                uid: res.user.uid,
+                displayName: name,
                 email: email
             });
 
             await setDoc(doc(db, "userChats", res.user.uid), {});
 
             navigate("/");
-            
+
         } catch (err) {
             console.log(err);
             setErr(true);
@@ -53,7 +53,7 @@ const SignUp = () => {
     return (
         <div className={styles.formContainer}>
             <div className={styles.formWrapper}>
-                <form className={styles.form}>
+                <form className={styles.form} onSubmit={signUpUser}>
                     <div className={styles.heading}>Sign Up</div>
                     <div className="mb-6">
                         <label className={styles.label} htmlFor="name"> Name </label>
@@ -61,14 +61,14 @@ const SignUp = () => {
                     </div>
                     <div className="mb-6">
                         <label className={styles.label} htmlFor="email">Email Address</label>
-                        <input className={styles.input} type="text" id="email" ref={emailInputRef} required />
+                        <input className={styles.input} type="email" id="email" ref={emailInputRef} required />
                     </div>
                     <div className="mb-6">
                         <label className={styles.label} htmlFor="password"> Password </label>
                         <input className={styles.input} type="password" id="password" ref={passwordInputRef} required />
                     </div>
                     <div className="flex items-center">
-                        <button className={styles.button} type="button" onClick={signUpUser}>
+                        <button className={styles.button} type="submit">
                             Sign Up
                         </button>
                         {err && <span>Something went wrong</span>}
